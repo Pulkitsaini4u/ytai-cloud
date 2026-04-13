@@ -1,0 +1,18 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm ci && npm run build"
+
+[deploy]
+startCommand = "node dist/server.js"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+
+[[services]]
+name = "api"
+startCommand = "node dist/server.js"
+
+[[services]]
+name = "workers"
+startCommand = "node dist/workers/index.js"
